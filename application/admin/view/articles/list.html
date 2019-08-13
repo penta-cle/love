@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html"}
+<body>
+{include file="./backend/sidebar.html"}
+
+<div class="content-wrap">
+    {include file="./backend/top.html"}
+    <main class="main-cont content mcustomscrollbar">
+        <div class="page-wrap">
+            <section class="page-hd">
+                <header>
+                    <h2 class="title">文章介绍</h2>
+                </header>
+                <hr>
+
+                <button class="btn btn-secondary radius" id="addNewArticle">新增</button>
+                <button class="btn btn-primary" id="view">查看文章</button>
+                <!-- <button class="btn btn-primary" id="tongji">统计</button> -->
+            </section>
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th width="20%">文章标题</th>
+                    <th width="30%">封面图</th>
+                    <th width="10%">发布人</th>
+                    <th>创建时间</th>
+                    <th>更改时间</th>
+                    <th width="10%">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $list as $item}
+                <tr class="cen">
+                    <td>{$item->id}</td>
+                    <td>{$item->atitle}</td>
+                    <td style="width: 130px;">
+                        <img style="width: 80px;" src="{$item->apic}"/>
+                    </td>
+                    <td>{$item->aname}</td>
+                    <td>{$item->create_time}</td>
+                    <td>{$item->update_time}</td>
+                    <td>
+                        <!-- 这里的id是为了针对一条数据进行操作 -->
+                        <a title="编辑" class="mr-5 edit" _id="{$item->id}">编辑</a>
+                        <a title="删除" class="delete" _id="{$item->id}">删除</a>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            {$list->render()}
+            <script>
+                $("#view").click(function () {
+                    layer.open({
+                        type: 2,
+                        title: '文章详情',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['850px', '850px'],
+                        content: '{:url("view")}'
+                    });
+                });
+                $("#addNewArticle").click(function () {
+                    layer.open({
+                        type: 2,
+                        title: '添加文章',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['750px', '750px'],
+                        content: '{:url("add")}'
+                    });
+                });
+                $('.delete').click(function () {
+                    let id = this.getAttribute("_id");
+                    layer.confirm('确认删除此内容？', {
+                        btn: ['确认', '取消'] //按钮
+                    }, function () {
+                        //删除ajax
+                        $.get("{:url('Articles/del_article')}?id=" + id,
+                            function (data, status) {
+                                console.log(status, data);
+                                if (data.code == 0)
+                                    layer.msg("删除成功", {icon: 1});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        );
+                    }, function () {
+
+                    });
+                });
+
+                $(".edit").click(function () {
+                    let id = this.getAttribute("_id");
+                    layer.open({
+                        type: 2,
+                        title: '编辑文章',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['750px', '750px'],
+                        content: '{:url("Articles/edit")}?id=' + id
+                    });
+                });
+
+            </script>
+
+            {include file="./backend/footer.html"}
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

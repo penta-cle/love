@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html"}
+<style>
+    #selectType3 {
+        width: auto;
+        text-align: center;
+    }
+</style>
+<body>
+{include file="./backend/sidebar.html"}
+
+<div class="content-wrap">
+    {include file="./backend/top.html"}
+    <main class="main-cont content mcustomscrollbar">
+        <div class="page-wrap">
+
+            <section class="page-hd">
+                <header>
+                    <h2 class="title">报名信息管理</h2>
+                </header>
+                <hr>
+                <div class="form-group-col-2">
+                    <!--<div class="form-label">报名状态：</div>-->
+                    <!--<p class="title-description">-->
+                    <!--分类-->
+                    <!--</p>-->
+                    <select style="width:auto;" id="selectType">
+                        <option>按报名渠道</option>
+                        <option value=all>全部</option>
+                        {foreach $qudao as $item}
+                        <option value={$item->qudao}>{$item->qudao}</option>
+                        {/foreach}
+                    </select>
+
+                    <!--<div class="form-label">审核状态：</div>-->
+                    <select style="width:auto;" id="selectType2">
+                        <option>按报名状态</option>
+                        <option value=all>全部</option>
+                        {foreach $state as $item}
+                        <option value={$item->state}>{$item->name}</option>
+                        {/foreach}
+                    </select>
+
+                    <select style="width:auto;" id="selectType3">
+                        <option>按文章标题</option>
+                        <option value=all>全部</option>
+                        {foreach $id as $item}
+                        <option value={$item->id}>{$item->atitle}</option>
+                        {/foreach}
+                    </select>
+                </div>
+        </div>
+
+        <!--<hr>-->
+        <!--<button class="btn btn-secondary radius" id="addNewArticle">新增</button>-->
+
+        <button class="btn btn-primary" id="view">信息描述</button>
+        <button class="btn btn-primary" id="zhuangtai">报名状态</button>
+        <button class="btn btn-primary" id="qudao">渠道管理</button>
+        <a href="{:url('index/exportSignup')}" target="_blank">
+            <button class="btn btn-primary" id="exportExcel">批量导出Excel</button>
+        </a>
+        <a href="{:url('select')}">
+            <button class="btn btn-secondary radius">刷新</button>
+        </a>
+
+        <div class="form-group-col-2" style="float: right;">
+            <form action="{:url('Baomings/Search')}">
+                <input type="tel" placeholder="请输入姓名或ID" class="form-control form-boxed" style="width:300px;"
+                       name="key">
+                <button class="btn btn-secondary-outline" type="submit">搜索</button>
+            </form>
+        </div>
+
+        </section>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th width="1%">id</th>
+                <th width="3%">姓名</th>
+                <th width="3%">性别</th>
+                <th width="5%">出生日期</th>
+                <th width="10%">住址</th>
+                <th width="5%">联系方式(个人)</th>
+                <th width="5%">独生子女</th>
+                <th width="5%">报名渠道</th>
+
+                <th width="5%">报名状态</th>
+
+
+                <th width="5%">监护人</th>
+                <th width="5%">关系</th>
+                <th width="3%">年龄</th>
+                <th width="6%">联系方式(监护人)</th>
+                <th width="7%">工作单位</th>
+                <th width="5%">报名时间</th>
+                <th width="5%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $list as $item}
+            <tr class="cen">
+                <td>{$item->id}</td>
+                <td>{$item->uname}</td>
+                <td>{$item->usex}</td>
+                <td>{$item->birth}</td>
+                <td>{$item->address}</td>
+                <td>{$item->tel}</td>
+                <td>{$item['alone']}</td>
+                <td>{$item->qudao}</td>
+                <td>{$item->state}</td>
+                <td>{$item->kname}</td>
+                <td>{$item->guanxi}</td>
+                <td>{$item->kage}</td>
+                <td>{$item->ktel}</td>
+                <td>{$item->kwork}</td>
+                <td>{$item->create_time}</td>
+                <td>
+                    <!-- 这里的id是为了针对一条数据进行操作 -->
+                    <a title="编辑" class="mr-5 edit" _id="{$item->id}">审核</a>
+                    <a title="删除" class="delete" _id="{$item->id}">删除</a>
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+        {$list->render()}
+        {if count($list) == 0 }
+        <div class="panel panel-default">
+            <div class="panel-bd">
+                <fieldset class="field-title center">
+                    <legend>暂无数据</legend>
+                </fieldset>
+            </div>
+        </div>
+        {/if}
+        <script>
+            $("#view").click(function () {
+                layer.open({
+                    type: 2,
+                    title: '信息描述',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['750px', '750px'],
+                    content: '{:url("view")}'
+                });
+            });
+            $("#qudao").click(function () {
+                layer.open({
+                    type: 2,
+                    title: '渠道管理',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['750px', '750px'],
+                    content: '{:url("qudao")}'
+                });
+            });
+            $("#zhuangtai").click(function () {
+                layer.open({
+                    type: 2,
+                    title: '报名状态',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['750px', '750px'],
+                    content: '{:url("zhuangtai")}'
+                });
+            });
+            $("#addNewArticle").click(function () {
+                layer.open({
+                    type: 2,
+                    title: '添加报名信息',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['750px', '750px'],
+                    content: '{:url("add")}'
+                });
+            });
+            $('.delete').click(function () {
+                let id = this.getAttribute("_id");
+                layer.confirm('确认删除此内容？', {
+                    btn: ['确认', '取消'] //按钮
+                }, function () {
+                    //删除ajax
+                    $.get("{:url('Baomings/del_baoming')}?id=" + id,
+                        function (data, status) {
+                            console.log(status, data);
+                            if (data.code == 0)
+                                layer.msg("删除成功", {icon: 1});
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    );
+                }, function () {
+
+                });
+            });
+
+            $(".edit").click(function () {
+                let id = this.getAttribute("_id");
+                layer.open({
+                    type: 2,
+                    title: '编辑报名信息',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['750px', '750px'],
+                    content: '{:url("Baomings/edit")}?id=' + id
+                });
+            });
+            $("#selectType").change(function (e) {
+                console.log(e.currentTarget.value);
+                let selected = e.currentTarget.value;
+                let action = "{$Request.action}";
+                let path = "{:url('getByType')}?qudao=" + selected + "&action=" + action;
+                window.location.href = (path);
+            })
+
+            $("#selectType2").change(function (e) {
+                console.log(e.currentTarget.value);
+                let selected = e.currentTarget.value;
+                let action = "{$Request.action}";
+                let path = "{:url('getByState')}?state=" + selected + "&action=" + action;
+                window.location.href = (path);
+            })
+
+            $("#selectType3").change(function (e) {
+                console.log(e.currentTarget.value);
+                let selected = e.currentTarget.value;
+                let action = "{$Request.action}";
+                let path = "{:url('getByArticle')}?article=" + selected + "&action=" + action;
+                window.location.href = (path);
+            })
+
+        </script>
+
+        {include file="./backend/footer.html"}
+
+    </main>
+</div>
+
+</body>
+</html>

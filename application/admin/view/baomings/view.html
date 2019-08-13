@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+{include file="./backend/header.html" /}
+<style>
+
+</style>
+<body>
+<br>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th width="5%">id</th>
+        <th width="5%">姓名</th>
+        <th width="20%">信息描述</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $item}
+    <tr class="cen">
+        <td>{$item->id}</td>
+        <td>{$item->uname}</td>
+        <td>{$item->word}</td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{$list->render()}
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html" /}
+<body>
+
+<main class="content mCustomScrollbar">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <h2 class="title">{$Vactive->vtitle}</h2>
+
+                <form action="{:url('Vactives/edit')}?id={$Vactive->id}" method="get">
+                    <input name="id" value="{$Vactive->id}" hidden/>
+                </form>
+            </header>
+            <div class='icontext'>创建时间：{$Vactive->create_time}&nbsp;&nbsp;&nbsp;&nbsp;更新时间：{$Vactive->update_time}</div>
+            <hr>
+        </section>
+        <div class="panel panel-default">
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                <tr class="cen">
+                    <td>ID</td>
+                    <td>{$Vactive->id}</td>
+                </tr>
+                <tr class="cen">
+                    <td>视频标题</td>
+                    <td>{$Vactive->vtitle}</td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label">视频链接：</td>
+                    <td class="form-cont">
+                        <div id="ctext">{$Vactive->vlianjie}</div>
+                    </td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label">发布人：</td>
+                    <td class="form-cont">
+                        <div id="cname">{$Vactive->vname}</div>
+                    </td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label">评论数目：</td>
+                    <td class="form-cont">
+                        <div id="agreement">{$Vactive->cnumber}</div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <button class="btn btn-danger-outline btn-block" id="refresh">确定</button>
+            <br>
+        </div>
+    </div>
+</main>
+<script>
+    //富文本
+    var E = window.wangEditor;
+    var editor = new E('#agreement');
+    $("#refresh").click(function(){
+        parent.location.reload();
+    });
+</script>
+</body>
+</html>

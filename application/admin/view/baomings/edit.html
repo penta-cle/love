@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html"}
+<body>
+<main class="content mCustomScrollbar">
+    <form action="{:url('update_baoming')}" method="post">
+        <input type="text" name="id" hidden value="{$Baoming['id']}">
+        <div class="page-wrap">
+
+            <section class="page-hd">
+                <header>
+                    <h2 class="title">编辑报名信息</h2>
+                </header>
+                <hr>
+            </section>
+
+            <div class="form-group-col-2">
+                <div class="form-label">姓名：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="uname"
+                           value="{$Baoming['uname']}">
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">性别：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="usex"
+                           value="{$Baoming['usex']}">
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">住址：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="address"
+                           value="{$Baoming['address']}">
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">出生日期：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="birth"
+                           value="{$Baoming['birth']}">
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">联系方式：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="tel"
+                           value="{$Baoming['tel']}">
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">独生子女：</div>
+                <div class="form-cont">
+                    <label class="radio">
+                        <input type="radio" name="alone" value="true" {$Baoming['alone'] == "true" ? 'checked =
+                        "checked"':''}>
+                        <span>是</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="alone" value="false" {$Baoming['alone'] == "false" ? 'checked =
+                        "checked"':''}>
+                        <span>否</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">报名渠道：</div>
+                <div class="form-cont">
+                    <select style="width:auto;" name="qudao">
+                        {foreach $types as $item}
+                        <option>{$item->qudao}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">信息描述：</div>
+                <div class="form-cont">
+                    <textarea class="form-control form-boxed" name="word">{$Baoming['word']}</textarea>
+                </div>
+            </div>
+            <hr style="border-top: 1px #e3e3e3 solid;float: left;width: 100%;margin-left: 10px;">
+            <br>
+            <div class="form-group-col-2">
+                <div class="form-label">亲属名：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="kname"
+                           value="{$Baoming['kname']}">
+                </div>
+            </div>
+            <!--<div class="form-group-col-2">-->
+            <!--<div class="form-label">关系：</div>-->
+            <!--<div class="form-cont">-->
+            <!--<input type="text" placeholder="" class="form-control form-boxed" name="guanxi"-->
+            <!--value="{$Baoming['guanxi']}">-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-group-col-2">
+                <div class="form-label">关系：</div>
+                <div class="form-cont">
+                    <select style="width:auto;" name="guanxi">
+                        <option value="父子">父子</option>
+                        <option value="父女">父女</option>
+                        <option value="母子">母子</option>
+                        <option value="母女">母女</option>
+                        <option value="兄弟">兄弟</option>
+                        <option value="兄妹">兄妹</option>
+                        <option value="姐弟">姐弟</option>
+                        <option value="姐妹">姐妹</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">年龄：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="kage"
+                           value="{$Baoming['kage']}">
+                </div>
+            </div>
+            <div class="form-group-col-2">
+                <div class="form-label">监护人联系方式：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="ktel"
+                           value="{$Baoming['ktel']}">
+                </div>
+            </div>
+            <div class="form-group-col-2">
+                <div class="form-label">工作单位：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="" class="form-control form-boxed" name="kwork"
+                           value="{$Baoming['kwork']}">
+                </div>
+            </div>
+
+
+
+            {if $Baoming['state'] < 3 }
+            <div class="form-group-col-2">
+                <div class="form-label">报名状态：</div>
+                <div class="form-cont">
+                    <label class="radio">
+                        <input type="radio" name="state" value="1" {$Baoming['state'] == 1 ? 'checked = "checked"':''}/>
+                        <span>等待审核</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="state" value="2" {$Baoming['state'] == 2 ? 'checked = "checked"':''}/>
+                        <span>审核成功</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="state" value="0" {$Baoming['state'] == 0 ? 'checked = "checked"':''}/>
+                        <span>审核失败</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group-col-2">
+                <div class="form-label">失败描述：</div>
+                <div class="form-cont">
+                    <textarea class="form-control form-boxed" name="reason"> {$Baoming['reason']}</textarea>
+                </div>
+            </div>
+
+            <!-- <hr> -->
+            <div class="form-group-col-2">
+                <div class="form-label"></div>
+                <div class="form-cont">
+                    <input type="submit" class="btn btn-primary" value="提交"/>
+                </div>
+            </div>
+            {/if}
+        </div>
+    </form>
+</main>
+<script>
+    $(".selectImage").change(function (e) {
+        //如果有选择图片则上传图片
+        var files = e.target.files || e.dataTransfer.files;
+        var formData = new FormData();
+        if (files.length > 0) {
+            formData.append('imgs[]', files[0]);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{:url("index/upload")}');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let resstr = xhr.responseText;
+                    let resp = JSON.parse(resstr);
+                    //console.log('上传成功:',resp.path);
+                    //处理其他数据，这里根据需要进行调整
+                    let imgepath = resp.path[0]; //组装数组
+                    $("#cover").val(imgepath);//设置为组装后的图片数组
+                    $(".cover").attr("src", imgepath);
+                }
+            };
+            xhr.send(formData);
+        }
+    });
+    //富文本
+    var E = window.wangEditor;
+    var editor = new E('#agreement');
+    var $text1 = $('#text1');
+    editor.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $text1.val(html)
+    };
+    // 自定义菜单配置
+    editor.customConfig.menus = [
+        'undo',  // 撤销
+        'redo',  // 重复
+        'head',  // 标题
+        'bold',  // 粗体
+        'italic',  // 斜体
+        'underline',  // 下划线
+        'strikeThrough',  // 删除线
+        'list',  // 列表
+        'justify',  // 对齐方式
+        'quote',  // 引用
+        'image',  // 插入图片
+        'table',  // 表格
+        'code',  // 插入代码
+    ];
+    // 配置服务器端图片上传地址
+    editor.customConfig.uploadImgServer = '{:url("index/upload")}';
+    editor.customConfig.uploadFileName = 'imgs[]';
+    editor.customConfig.debug = true;
+    editor.create();
+
+    // 初始化 textarea 的值
+    $text1.val(editor.txt.html())
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html" /}
+<body>
+
+<main class="content mCustomScrollbar">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <h2 class="title">{$Lactive->ltitle}</h2>
+
+                <form action="{:url('Lactives/edit')}?id={$Lactive->id}" method="get">
+                    <input name="id" value="{$Lactive->id}" hidden/>
+                </form>
+            </header>
+            <div class='icontext'>创建时间：{$Lactive->create_time}&nbsp;&nbsp;&nbsp;&nbsp;更新时间：{$Lactive->update_time}</div>
+            <hr>
+        </section>
+        <div class="panel panel-default">
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                <tr class="cen">
+                    <td width="3%">ID</td>
+                    <td width="5%">{$Lactive->id}</td>
+                </tr>
+                <tr class="cen">
+                    <td width="3%">活动标题</td>
+                    <td width="5%">{$Lactive->ltitle}</td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label" width="3%">视频链接：</td>
+                    <td class="form-cont" width="5%">
+                        <div id="ctext">{$Lactive->vlianjie}</div>
+                    </td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label" width="3%">视频发布人：</td>
+                    <td class="form-cont" width="5%">
+                        <div id="cname">{$Lactive->vname}</div>
+                    </td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label" width="3%">活动详情：</td>
+                    <td class="form-cont">
+                        <div id="agreement" width="7%">{$Lactive->atext}</div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <button class="btn btn-danger-outline btn-block" id="refresh">确定</button>
+            <br>
+        </div>
+    </div>
+</main>
+<script>
+    //富文本
+    var E = window.wangEditor;
+    var editor = new E('#agreement');
+    $("#refresh").click(function(){
+        parent.location.reload();
+    });
+</script>
+</body>
+</html>

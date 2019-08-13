@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+{include file="./backend/header.html" /}
+<style>
+
+</style>
+<body>
+<br>
+<button class="btn btn-secondary radius" id="addNewArticle">新增</button>
+    <a href="{:url('qudao')}">
+<button class="btn btn-secondary radius">刷新</button>
+    </a>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th width="3%">id</th>
+        <th width="5%">报名渠道</th>
+        <th width="5%">创建时间</th>
+        <th width="5%">更新时间</th>
+        <th width="5%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $item}
+    <tr class="cen">
+        <td>{$item->id}</td>
+        <td>{$item->qudao}</td>
+        <td>{$item->create_time}</td>
+        <td>{$item->update_time}</td>
+        <td>
+            <!-- 这里的id是为了针对一条数据进行操作 -->
+            <a title="删除" class="delete" _id="{$item->id}">删除</a>
+        </td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{$list->render()}
+<script>
+
+    $("#addNewArticle").click(function () {
+        layer.open({
+            type: 2,
+            title: '新增订单',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['600px', '600px'],
+            content: '{:url("add_qudaos")}'
+        });
+    });
+    $('.delete').click(function () {
+        let id = this.getAttribute("_id");
+        layer.confirm('确认删除此内容？', {
+            btn: ['确认', '取消'] //按钮
+        }, function () {
+            //删除ajax
+            $.get("{:url('Baomings/del_qudao')}?id=" + id,
+                function (data, status) {
+                    console.log(status, data);
+                    if (data.code == 0)
+                        layer.msg("删除成功", {icon: 1});
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                }
+            );
+        }, function () {
+
+        });
+    });
+    //修改
+    $(".edit").click(function () {
+        let id = this.getAttribute("_id");
+        layer.open({
+            type: 2,
+            title: '编辑订单',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['650px', '650px'],
+            content: '{:url("Tdingdans/edit")}?id=' + id
+        });
+    });
+
+</script>
+</body>
+</html>

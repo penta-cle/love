@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+{include file="./backend/header.html" /}
+<style>
+
+</style>
+<body>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th width="2%">id</th>
+        <th width="5%">文章标题</th>
+        <th width="7%">文章详情</th>
+        <th width="2%">点赞数</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $item}
+    <tr class="cen">
+        <td width="2%">{$item->id}</td>
+        <td width="5%">{$item->atitle}</td>
+        <td width="7%">{$item->atext}</td>
+        <td width="2%">{$item->likes}</td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{$list->render()}
+</body>
+</html>

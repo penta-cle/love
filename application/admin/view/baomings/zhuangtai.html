@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+{include file="./backend/header.html" /}
+<style>
+
+</style>
+<body>
+<br>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th width="5%">id</th>
+        <th width="5%">姓名</th>
+        <th width="5%">报名状态</th>
+        <th width="5%">状态描述</th>
+<!--        <th width="5%">操作(删除全部信息)</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $item}
+    <tr class="cen">
+        <td>{$item->id}</td>
+        <td>{$item->uname}</td>
+        <td>{$item->state}</td>
+        <td>{$item->reason}</td>
+<!--        <td>-->
+<!--            &lt;!&ndash; 这里的id是为了针对一条数据进行操作 &ndash;&gt;-->
+<!--&lt;!&ndash;            <a title="编辑" class="mr-5 edit" _id="{$item->id}">编辑</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a title="删除" class="delete" _id="{$item->id}">删除</a>&ndash;&gt;-->
+<!--        </td>-->
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{$list->render()}
+<script>
+    $('.delete').click(function () {
+        let id = this.getAttribute("_id");
+        layer.confirm('确认删除此内容？', {
+            btn: ['确认', '取消'] //按钮
+        }, function () {
+            //删除ajax
+            $.get("{:url('Tdingdans/delete_teacher')}?id=" + id,
+                function (data, status) {
+                    console.log(status, data);
+                    if (data.code == 0)
+                        layer.msg("删除成功", {icon: 1});
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                }
+            );
+        }, function () {
+
+        });
+    });
+
+    $(".edit").click(function () {
+        let id = this.getAttribute("_id");
+        layer.open({
+            type: 2,
+            title: '编辑订单',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['650px', '650px'],
+            content: '{:url("Tdingdans/edit")}?id=' + id
+        });
+    });
+</script>
+</body>
+</html>

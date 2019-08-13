@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html"}
+<body>
+
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th width="3%">id</th>
+                    <th width="10%">名单详情</th>
+                    <th width="2%">发布人</th>
+                    <th width="2%">点赞数</th>
+                    <th width="2%">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $list as $item}
+                <tr class="cen">
+                    <td>{$item->id}</td>
+                    <td>{$item->ltext}</td>
+                    <td>{$item->lname}</td>
+                    <td>{$item->likes}</td>
+                    <td>
+                        <!-- 这里的id是为了针对一条数据进行操作 -->
+                        <a title="删除" class="delete" _id="{$item->id}">删除</a>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            {$list->render()}
+
+            <script>
+                $('.delete').click(function () {
+                    let id = this.getAttribute("_id");
+                    layer.confirm('确认删除此内容？', {
+                        btn: ['确认', '取消'] //按钮
+                    }, function () {
+                        //删除ajax
+                        $.get("{:url('Mingdans/del_Mingdan')}?id=" + id,
+                            function (data, status) {
+                                console.log(status, data);
+                                if (data.code == 0)
+                                    layer.msg("删除成功", {icon: 1});
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        );
+                    }, function () {
+
+                    });
+                });
+                $(".view").click(function () {
+                    let id = this.getAttribute("_id");
+                    layer.open({
+                        type: 2,
+                        title: '编辑名单',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['750px', '750px'],
+                        content: '{:url("Mingdans/view_mingdan")}?id=' + id
+                    });
+                });
+            </script>
+
+</body>
+</html>

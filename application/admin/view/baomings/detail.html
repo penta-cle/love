@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html" /}
+<body>
+
+<main class="content mCustomScrollbar">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <h2 class="title">{$Baoming->uname}</h2>
+
+                <form action="{:url('Baomings/edit')}?id={$Baoming->id}" method="get">
+                    <input name="id" value="{$Baoming->id}" hidden/>
+
+                </form>
+            </header>
+            <div class='icontext'>创建时间：{$Baoming->create_time}&nbsp;&nbsp;&nbsp;&nbsp;更新时间：{$Baoming->update_time}</div>
+            <hr>
+        </section>
+        <div class="panel panel-default">
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                <tr class="cen">
+                    <td>ID</td>
+                    <td>{$Baoming->id}</td>
+                </tr>
+                <tr class="cen">
+                    <td>姓名</td>
+                    <td>{$Baoming->uname}</td>
+                </tr>
+
+                <tr class="cen">
+                    <td>性别</td>
+                    <td>{$Baoming->usex}</td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label">住址：</td>
+                    <td class="form-cont">
+                        <div id="cname">{$Baoming->address}</div>
+                    </td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label">出生日期：</td>
+                    <td class="form-cont">
+                        <div id="agreement">{$Baoming->birth}</div>
+                    </td>
+                </tr>
+                <tr class="cen">
+                    <td class="form-label">个人联系方式</td>
+                    <td>{$Baoming->tel}</td>
+                </tr><tr class="cen">
+                    <td class="form-label">信息描述</td>
+                    <td>{$Baoming->word}</td>
+                </tr><tr class="cen">
+                <tr class="cen">
+                    <td class="form-label">独生子女</td>
+                    <td>{$Baoming->alone}</td>
+                </tr>
+                <tr class="cen">
+                    <td class="form-label">报名渠道</td>
+                    <td>{$Baoming->qudao}</td>
+                </tr>
+                <tr class="cen">
+                    <td class="form-label">报名状态</td>
+                    <td>{$Baoming->state}</td>
+                </tr>
+                <tr class="cen">
+                    <td class="form-label">失败原因</td>
+                    <td>{$Baoming->reason}</td>
+                </tr>
+                <tr class="cen">
+                    <td class="form-label">监护人姓名</td>
+                    <td>{$Baoming->kname}</td>
+                </tr><tr class="cen">
+                    <td class="form-label">关系</td>
+                    <td>{$Baoming->guanxi}</td>
+                </tr><tr class="cen">
+                    <td class="form-label">年龄</td>
+                    <td>{$Baoming->kage}</td>
+                </tr><tr class="cen">
+                    <td class="form-label">工作单位</td>
+                    <td>{$Baoming->kwork}</td>
+                </tr><tr class="cen">
+                    <td class="form-label">监护人联系方式</td>
+                    <td>{$Baoming->ktel}</td>
+                </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-danger-outline btn-block" id="refresh">确定</button>
+            <br>
+        </div>
+    </div>
+</main>
+<script>
+    //富文本
+    var E = window.wangEditor;
+    var editor = new E('#agreement');
+    $("#refresh").click(function(){
+        parent.location.reload();
+    });
+
+</script>
+</body>
+</html>

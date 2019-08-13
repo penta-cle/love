@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="./backend/header.html" /}
+<body>
+
+<main class="content mCustomScrollbar">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <h2 class="title">{$Article->atitle}</h2>
+
+                <form action="{:url('Articles/edit')}?id={$Article->id}" method="get">
+                    <input name="id" value="{$Article->id}" hidden/>
+
+                </form>
+            </header>
+            <div class='icontext'>创建时间：{$Article->create_time}&nbsp;&nbsp;&nbsp;&nbsp;更新时间：{$Article->update_time}</div>
+            <hr>
+        </section>
+        <div class="panel panel-default">
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                <tr class="cen">
+                    <td>ID</td>
+                    <td>{$Article->id}</td>
+                </tr>
+                <tr class="cen">
+                    <td>文章标题</td>
+                    <td>{$Article->atitle}</td>
+                </tr>
+
+                <tr class="cen">
+                    <td>缩略图</td>
+                    <td><img style="width: 80px;" src="{$Article->apic}" class="pic "/></td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label">发布人：</td>
+                    <td class="form-cont">
+                        <div id="cname">{$Article->aname}</div>
+                    </td>
+                </tr>
+
+                <tr class="cen">
+                    <td class="form-label">文章详情：</td>
+                    <td class="form-cont">
+                        <div id="agreement">{$Article->atext}</div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <button class="btn btn-danger-outline btn-block" id="refresh">确定</button>
+            <br>
+        </div>
+    </div>
+</main>
+<script>
+    //富文本
+    var E = window.wangEditor;
+    var editor = new E('#agreement');
+    $("#refresh").click(function(){
+        parent.location.reload();
+    });
+</script>
+</body>
+</html>
